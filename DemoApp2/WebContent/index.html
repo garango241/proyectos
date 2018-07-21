@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+		<title>Demo App 2</title>
+
+		<script src="resources/sap-ui-core.js"
+				id="sap-ui-bootstrap"
+				data-sap-ui-libs="sap.ui.commons"
+				data-sap-ui-theme="sap_bluecrystal">
+		</script>
+		<!-- add sap.ui.table,sap.ui.ux3 and/or other libraries to 'data-sap-ui-libs' if required -->
+
+		<script>
+			var oLayout = new sap.ui.commons.layout.MatrixLayout({
+				width : "100%",
+				widths : ["30%", "40%", "30%"]
+			});
+			var oLabel1 = new sap.ui.commons.Label({
+				
+				text : "Nombres",
+				textAlign: "Center",
+				width : "100%"
+				
+				
+			});
+			var oTextField1 = new sap.ui.commons.TextField({
+				id : "Nombres",
+				width : "100%"
+			});
+			var oLabel2 = new sap.ui.commons.Label({
+				text : "Apellidos",
+				textAlign: "Center",
+				width : "100%"
+			});
+			var oTextField2 = new sap.ui.commons.TextField({
+				id : "Apellidos",
+				width : "100%"
+			});
+			var oButton = new sap.ui.commons.Button({
+				text : "Submit"
+			});
+			
+			//Add rows with label/ textfield to table
+			oLayout.createRow(null, null, null);
+			oLayout.createRow(oLabel1, oTextField1, null);
+			oLayout.createRow(oLabel2, oTextField2, null);
+			oLayout.createRow(null, oButton, null);
+			oLayout.placeAt("content"); // add handler to alert textfield values
+			oButton.attachPress(function (){
+				var msg = "Nombres:" + oTextField1.getValue() + "\n"
+				+ "Apellidos:" + oTextField2.getValue();
+				alert(msg);
+			})
+			
+		</script>
+
+
+	</head>
+	<body class="sapUiBody" role="application">
+		<div id="content"></div>
+	</body>
+</html>
