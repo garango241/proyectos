@@ -7,7 +7,7 @@ sap.ui.controller("products.Product", {
 */
 	onInit: function() {
 	
-		var oModel = new sap.ui.model.odata.ODataModel("proxy/https/services.odata.org/V3/(S(flw5mdnudqzfl13szlml4lk0))/OData/OData.svc");
+		var oModel = new sap.ui.model.odata.ODataModel("proxy/https/services.odata.org/V3/(S(muzubenxxrf2twu1wtgv2p2n))/OData/OData.svc");
 		
 		oModel.oHeaders = {
 				"DataServiceVersion": "3.0",
@@ -62,8 +62,33 @@ sap.ui.controller("products.Product", {
 		
 		$("#formId").slideDown(300, function(){
 			
+			
 			var id = sap.ui.getCore().byId('tableId')._iBindingLength;
 			$("#id").val(id);
+			
+			var idformulario = parseInt($("#id").val());
+			var product;
+			console.log("inciando operación...");
+			console.log("valor de id al inicio de la operación: " + id);
+			   
+			   do{
+			   
+			    product = sap.ui.getCore().getModel('products').oData['Products('+idformulario+')'];
+			    
+			    if(product == null)
+			    {
+			    						
+			    } else {
+			     
+			    idformulario++;
+			     
+			    }
+			   
+			   }while(product != null);
+			   
+			   console.log("Finalemente el id a guardar después de la operación es: " + idformulario)
+			   console.log("Operación finalizada con éxito !!!")
+			   $("#id").val(idformulario);
 		});
 	},
 	
@@ -94,14 +119,10 @@ sap.ui.controller("products.Product", {
 				$("#rating").val(rating);
 				$("#id").val(id);
 
-
-
 			})
 		}
-
-
-		
 	},
+
 	
 	removeId : 0 ,
 
@@ -154,42 +175,21 @@ sap.ui.controller("products.Product", {
 		
 		if(this.mode == 'create'){
 
-			var url = "proxy/https/services.odata.org/V3/(S(flw5mdnudqzfl13szlml4lk0))/OData/OData.svc/Products";
+			var url = "proxy/https/services.odata.org/V3/(S(muzubenxxrf2twu1wtgv2p2n))/OData/OData.svc/Products";
 			var method = "POST";
-
-			var oTable = sap.ui.getCore().byId('tableId');
-			var selected = oTable.getSelectedIndex();
-
+			
+			requestObj.requestUri = url;
+			requestObj.method = method;	
+			requestObj.data = newData;
 			
 			
 
-			var id = sap.ui.getCore().byId('tableId')._iBindingLength;
-			var data = oTable.getModel('products').oData['Products('+ id +')'];
-			console.log(id);
-			console.log(data.ID);
 			
-			if (num == null) {
-
-				console.log("No esta definido");
-
-				requestObj.requestUri = url;
-				requestObj.method = method;	
-				requestObj.data = newData;
-
-				sto = false;
-				
-			}else{
-				
-				console.log("esta definido");
-			}
-			
-			
-					
-			
+	
 		}else if (this.mode == 'edit') {
 			
 			var id = $("#id").val();
-			var url = "proxy/https/services.odata.org/V3/(S(flw5mdnudqzfl13szlml4lk0))/OData/OData.svc/Products("+id+")";
+			var url = "proxy/https/services.odata.org/V3/(S(muzubenxxrf2twu1wtgv2p2n))/OData/OData.svc/Products("+id+")";
 			var method = "PUT";
 			
 			requestObj.requestUri = url;
@@ -198,7 +198,7 @@ sap.ui.controller("products.Product", {
 
 		}else if(this.mode == 'delete'){
 			var id = this.removeId;
-			var url = "proxy/https/services.odata.org/V3/(S(flw5mdnudqzfl13szlml4lk0))/OData/OData.svc/Products("+id+")";
+			var url = "proxy/https/services.odata.org/V3/(S(muzubenxxrf2twu1wtgv2p2n))/OData/OData.svc/Products("+id+")";
 			var method = "DELETE";
 			
 			requestObj.requestUri = url;
